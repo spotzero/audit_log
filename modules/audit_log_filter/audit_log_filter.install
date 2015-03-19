@@ -9,4 +9,6 @@
  */
 function audit_log_filter_uninstall() {
   variable_del('audit_log_filter_exclude_roles');
+  variable_del('audit_log_exclude_enity_types');
+  variable_del('audit_log_exclude_bundles');
 }
