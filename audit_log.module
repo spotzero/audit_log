@@ -58,7 +58,7 @@ function audit_log($entity, $entity_type, $action = 'view', $account = NULL, $ur
     'timestamp' => $timestamp,
   );
 
-  // Does this needs to be logged.
+  // Does this need to be logged.
   $log_it = module_invoke_all('audit_log_it', $log, $context, $account);
   if (in_array(AUDIT_LOG_DO_NOT_LOG, $log_it, TRUE)) {
     // Inform other modules it has not been logged.

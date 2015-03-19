@@ -19,7 +19,7 @@ function audit_log_filter_audit_log_it(Auditlog $log, array $context, $account) 
  */
 function audit_log_filter_permission() {
   return array(
-    'audit_Log_filter_admin' => array(
+    'audit_log_filter_admin' => array(
       'title' => t('Administer audit log filter'),
       'description' => t('Perform administration tasks for audit log filter.'),
     ),
@@ -36,16 +36,16 @@ function audit_log_filter_menu() {
     'title' => 'Audit log settings',
     'description' => 'Audit log settings',
     'page callback' => 'system_admin_menu_block_page',
-    'access arguments' => array('audit_Log_filter_admin'),
+    'access arguments' => array('audit_log_filter_admin'),
     'type' => MENU_NORMAL_ITEM,
     'file path' => drupal_get_path('module', 'system'),
     'file' => 'system.admin.inc',
   );
 
   $items['admin/config/system/audit-log/filter-by-role'] = array(
-    'title' => 'Filter loggin by role',
-    'description' => 'Filter loggin by role',
-    'access arguments' => array('audit_Log_filter_admin'),
+    'title' => 'Filter logging by role',
+    'description' => 'Filter logging by role',
+    'access arguments' => array('audit_log_filter_admin'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('audit_log_filter_by_role_form'),
     'file' => 'audit_log_filter.admin.inc',

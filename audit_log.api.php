@@ -39,7 +39,7 @@ function hook_audit_log_it(Auditlog $log, array $context, $account) {
  * @param Auditlog $log
  *   The audit log being skipped.
  */
-function hook_audit_log_insert(Auditlog $log) {
+function hook_audit_log_skipped(Auditlog $log) {
   // Your logic.
 }
 
