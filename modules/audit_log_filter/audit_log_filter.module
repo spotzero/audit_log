@@ -1,0 +1,55 @@
+<?php
+/**
+ * @file
+ * Hook implemenations for the Audit database logging module.
+ */
+
+/**
+ * Implements hook_audit_log_it().
+ */
+function audit_log_filter_audit_log_it(Auditlog $log, array $context, $account) {
+  if (!empty(array_intersect($log->role_ids, variable_get('audit_log_filter_exclude_roles', array())))) {
+    return AUDIT_LOG_DO_NOT_LOG;
+  }
+  return AUDIT_LOG_DO_LOG;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function audit_log_filter_permission() {
+  return array(
+    'audit_Log_filter_admin' => array(
+      'title' => t('Administer audit log filter'),
+      'description' => t('Perform administration tasks for audit log filter.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function audit_log_filter_menu() {
+  $items = array();
+
+  $items['admin/config/system/audit-log'] = array(
+    'title' => 'Audit log settings',
+    'description' => 'Audit log settings',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('audit_Log_filter_admin'),
+    'type' => MENU_NORMAL_ITEM,
+    'file path' => drupal_get_path('module', 'system'),
+    'file' => 'system.admin.inc',
+  );
+
+  $items['admin/config/system/audit-log/filter-by-role'] = array(
+    'title' => 'Filter loggin by role',
+    'description' => 'Filter loggin by role',
+    'access arguments' => array('audit_Log_filter_admin'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('audit_log_filter_by_role_form'),
+    'file' => 'audit_log_filter.admin.inc',
+  );
+
+  return $items;
+}
