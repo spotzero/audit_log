@@ -4,6 +4,9 @@
  * Hook implemenations for the Audit log module.
  */
 
+define('AUDIT_LOG_DO_LOG', 'do not log');
+define('AUDIT_LOG_DO_NOT_LOG', 'do not log');
+
 /**
  * Log an audit log.
  *
@@ -54,8 +57,22 @@ function audit_log($entity, $entity_type, $action = 'view', $account = NULL, $ur
     'url' => $url,
     'timestamp' => $timestamp,
   );
+
+  // Does this needs to be logged.
+  $log_it = module_invoke_all('audit_log_it', $log, $context, $account);
+  if (in_array(AUDIT_LOG_DO_NOT_LOG, $log_it, TRUE)) {
+    // Inform other modules it has not been logged.
+    module_invoke_all('audit_log_skipped', $log);
+    return;
+  }
+
+  // Allow other modules to alter the log object.
   drupal_alter('audit_log', $log, $context);
+
+  // Log the object.
   $log->log();
+
+  // Inform other modules it has been logged.
   module_invoke_all('audit_log_insert', $log);
 }
 
