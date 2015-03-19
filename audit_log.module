@@ -4,7 +4,7 @@
  * Hook implemenations for the Audit log module.
  */
 
-define('AUDIT_LOG_DO_LOG', 'do not log');
+define('AUDIT_LOG_DO_LOG', 'do log');
 define('AUDIT_LOG_DO_NOT_LOG', 'do not log');
 
 /**
