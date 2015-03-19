@@ -4,3 +4,5 @@ package = Audit log
 core = 7.x
 
 dependencies[] = audit_log
+
+files[] = views/handlers/views_handler_field_audit_log_roles.inc
