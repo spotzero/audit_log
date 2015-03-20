@@ -17,6 +17,14 @@ function audit_log_filter_audit_log_it(Auditlog $log, array $context, $account) 
   if (in_array($log->entity_type . ':' . $log->bundle, variable_get('audit_log_exclude_bundles', array()))) {
     return AUDIT_LOG_DO_NOT_LOG;
   }
+  if (drupal_is_cli()) {
+    if (variable_get('audit_log_exclude_cli', FALSE)) {
+      return AUDIT_LOG_DO_NOT_LOG;
+    }
+    if (function_exists('drush_main') && variable_get('audit_log_exclude_drush', FALSE)) {
+      return AUDIT_LOG_DO_NOT_LOG;
+    }
+  }
   return AUDIT_LOG_DO_LOG;
 }
 
@@ -63,6 +71,15 @@ function audit_log_filter_menu() {
     'access arguments' => array('audit_log_filter_admin'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('audit_log_filter_by_entity_form'),
+    'file' => 'audit_log_filter.admin.inc',
+  );
+
+  $items['admin/config/system/audit-log/filter-by-cli'] = array(
+    'title' => 'Filter logging by environment',
+    'description' => 'Filter logging by environment (drush, cli, ...).',
+    'access arguments' => array('audit_log_filter_admin'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('audit_log_filter_by_cli_form'),
     'file' => 'audit_log_filter.admin.inc',
   );
 

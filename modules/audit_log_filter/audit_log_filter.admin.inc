@@ -19,7 +19,7 @@ function audit_log_filter_by_role_form($form, &$form_state) {
 }
 
 /**
- * Render admin form to entity types and bundles.
+ * Render admin form to select entity types and bundles.
  */
 function audit_log_filter_by_entity_form($form, &$form_state) {
   $entity_info = entity_get_info();
@@ -83,4 +83,25 @@ function audit_log_filter_by_entity_form_submit($form, &$form_state) {
   }
   variable_set('audit_log_exclude_bundles', $audit_log_exclude_bundles);
   drupal_set_message(t('The configuration options have been saved.'));
+}
+
+/**
+ * Render admin form to select environments.
+ */
+function audit_log_filter_by_cli_form($form, &$form_state) {
+  $form['audit_log_exclude_cli'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Exclude cli'),
+    '#description' => t('If checked, there will be no logging if Drupal is called form the command line interface.'),
+    '#default_value' => variable_get('audit_log_exclude_cli', FALSE),
+  );
+
+  $form['audit_log_exclude_drush'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Exclude drush'),
+    '#description' => t('If checked, there will be no logging if Drupal is called form the command line interface through drush.'),
+    '#default_value' => variable_get('audit_log_exclude_drush', FALSE),
+  );
+
+  return system_settings_form($form);
 }
