@@ -8,7 +8,7 @@
  * Implements hook_audit_log_it().
  */
 function audit_log_filter_audit_log_it(Auditlog $log, array $context, $account) {
-  if (!empty(array_intersect($log->role_ids, variable_get('audit_log_filter_exclude_roles', array())))) {
+  if (count(array_intersect($log->role_ids, variable_get('audit_log_filter_exclude_roles', array())))) {
     return AUDIT_LOG_DO_NOT_LOG;
   }
   if (in_array($log->entity_type, variable_get('audit_log_exclude_entity_types', array()))) {
