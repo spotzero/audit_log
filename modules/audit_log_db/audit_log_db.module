@@ -37,3 +37,16 @@ function audit_log_db_views_api() {
 function audit_log_db_audit_action_options() {
   return drupal_map_assoc(array('view', 'insert', 'update', 'delete'));
 }
+
+
+/**
+ * Implements hook_permission().
+ */
+function audit_log_db_permission() {
+  return array(
+    'audit_log_db_view_admin' => array(
+      'title' => t('View audit log'),
+      'description' => t('Access the default view that shows the log entries.'),
+    ),
+  );
+}
