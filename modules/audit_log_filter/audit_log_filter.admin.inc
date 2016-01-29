@@ -47,8 +47,9 @@ function audit_log_filter_by_entity_form($form, &$form_state) {
     $entity_bundle_options = array();
     $default_value = array();
     foreach ($info['bundles'] as $bundle_name => $bundle_info) {
-      $entity_bundle_options[$entity_type . ':' . $bundle_name] = $bundle_info['label'];
-      $default_value[$entity_type . ':' . $bundle_name] = isset($excluded_bundles) && $excluded_bundles[$entity_type . ':' . $bundle_name] ? $entity_type . ':' . $bundle_name : 0;
+      $key = $entity_type . ':' . $bundle_name;
+      $entity_bundle_options[$key] = $bundle_info['label'];
+      $default_value[$key] = array_key_exists($key, $excluded_bundles) ? $key : 0;
     }
     $form['audit_log_exclude_bundles'][$entity_type] = array(
       '#type' => 'checkboxes',
