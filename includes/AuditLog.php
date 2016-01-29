@@ -112,7 +112,7 @@ class Auditlog {
       $values = array(
         'uid' => $user->uid,
         'role_ids' => array_keys($user->roles),
-        'name' => $user->name,
+        'name' => user_is_anonymous() ? variable_get('anonymous', t('Anonymous')) : $user->name,
       ) + $values;
     }
     if (!isset($values['name'])) {
