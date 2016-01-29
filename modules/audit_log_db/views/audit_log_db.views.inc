@@ -245,8 +245,19 @@ function audit_log_db_views_data() {
  * Implements hook_views_data_alter().
  */
 function audit_log_db_views_data_alter(&$data) {
-  $data['users']['table']['join']['audit_log'] = array(
+  $base_table = 'audit_log';
+  $data['users']['table']['join'][$base_table] = array(
     'left_field' => 'uid',
     'field' => 'uid',
   );
+
+  if (module_exists('date_views')) {
+    $data[$base_table]['date_argument'] = $data['node']['date_argument'];
+    $data[$base_table]['date_argument']['title'] = t('Date (!base_table)', array('!base_table' => $base_table));
+    $data[$base_table]['date_argument']['help'] = t('Filter any Views !base_table date field.', array('!base_table' => $base_table));
+
+    $data[$base_table]['date_filter'] = $data['node']['date_filter'];
+    $data[$base_table]['date_filter']['title'] = t('Date (!base_table)', array('!base_table' => $base_table));
+    $data[$base_table]['date_filter']['help'] = t('Filter any Views !base_table date field.', array('!base_table' => $base_table));
+  }
 }
