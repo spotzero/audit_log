@@ -1,0 +1,74 @@
+<?php
+/**
+ * @file
+ * User related hook implemenations for the Audit log module.
+ */
+
+
+/**
+ * Implements hook_user_login().
+ * Log successful login action of user
+ */
+function audit_log_user_user_login(&$edit, $account) {
+  audit_log($account, 'user', 'user-login');
+}
+
+/**
+ * Implements hook_user_logout().
+ * Log logout action of user
+ */
+function audit_log_user_user_logout($account) {
+  audit_log($account, 'user', 'user-logout');
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * Adds custom validation to user_login_block form
+ */
+function audit_log_user_form_user_login_block_alter(&$form, &$form_state) {
+  audit_log_user_form_user_login_alter($form, $form_state);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * Adds custom validation to user_login_form form
+ */
+function audit_log_user_form_user_login_alter(&$form, &$form_state) {
+  $form['#validate'][] = 'audit_log_user_login_validate';
+}
+
+/**
+ * Validate user entered password on login
+ */
+function audit_log_user_login_validate($form, &$form_state) {
+  $uid = _audit_log_user_exists($form_state['values']['name']);
+  if (!$uid) {
+    $anon = user_load(0);
+    $anon->name = $form_state['values']['name'];
+    audit_log($anon, 'user', 'pass-nonuser');
+  }
+  elseif (!user_authenticate($form_state['values']['name'], trim($form_state['values']['pass']))) {
+    $anon = user_load(0);
+    $anon->name = $form_state['values']['name'];
+    audit_log($anon, 'user', 'pass-wrong');
+  }
+}
+
+/**
+ * Query user table to check if such username is already exists.
+ */
+function _audit_log_user_exists($username) {
+  $q = db_select('users', 'u');
+  $q->addField('u', 'uid');
+  $q->where('LOWER(u.name) = :username', array(':username' => strtolower($username)));
+  return $q->execute()->fetchField();
+}
+
+/**
+ * Implements hook_audit_log_action_options().
+ *
+ * Provide actions related to user actions
+ */
+function audit_log_user_audit_log_action_options() {
+  return drupal_map_assoc(array('user-login', 'user-logout', 'pass-nonuser', 'pass-wrong'));
+}
