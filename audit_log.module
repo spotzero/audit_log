@@ -103,3 +103,20 @@ function audit_log_entity_update($entity, $entity_type) {
 function audit_log_entity_delete($entity, $entity_type) {
   audit_log($entity, $entity_type, 'delete');
 }
+
+/**
+ * Helper function to get all possible audit actions.
+ */
+function audit_log_action_options() {
+  $actions = module_invoke_all('audit_log_action_options');
+  return $actions;
+}
+
+/**
+ * Implements hook_audit_log_action_options().
+ *
+ * Provide actions implemented by default.
+ */
+function audit_log_audit_log_action_options() {
+  return drupal_map_assoc(array('view', 'insert', 'update', 'delete'));
+}

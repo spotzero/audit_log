@@ -173,7 +173,7 @@ function audit_log_db_views_data() {
       ),
       'filter' => array(
         'handler' => 'views_handler_filter_in_operator',
-        'options callback' => 'audit_log_db_audit_action_options',
+        'options callback' => 'audit_log_action_options',
       ),
       'argument' => array(
         'handler' => 'views_handler_argument_string',
