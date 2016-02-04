@@ -118,5 +118,5 @@ function audit_log_action_options() {
  * Provide actions implemented by default.
  */
 function audit_log_audit_log_action_options() {
-  return drupal_map_assoc(array('view', 'insert', 'update', 'delete'));
+  return drupal_map_assoc(array('view', 'insert', 'update', 'delete'), 'ucwords');
 }
