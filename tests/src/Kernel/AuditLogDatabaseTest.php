@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\audit_log\Kernel;
+namespace Drupal\Tests\audit_log\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\user\Entity\User;
