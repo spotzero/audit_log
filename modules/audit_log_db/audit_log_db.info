@@ -1,6 +1,0 @@
-name = Audit database logging
-description = Provides database storage for entity audit events.
-package = Audit log
-core = 7.x
-
-dependencies[] = audit_log
