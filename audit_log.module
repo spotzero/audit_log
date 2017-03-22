@@ -1,0 +1,24 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_update().
+ */
+function audit_log_entity_update(EntityInterface $entity) {
+  \Drupal::service('audit_log.logger')->log('update', $entity);
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function audit_log_entity_insert(EntityInterface $entity) {
+  \Drupal::service('audit_log.logger')->log('insert', $entity);
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function audit_log_entity_delete(EntityInterface $entity) {
+  \Drupal::service('audit_log.logger')->log('delete', $entity);
+}

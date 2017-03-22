@@ -1,0 +1,25 @@
+services:
+  audit_log.logger:
+    class: Drupal\audit_log\AuditLogLogger
+    tags:
+      - { name: service_collector, tag: audit_log_entity_event_interpreter, call: add_interpreter }
+
+  audit_log.register:
+    class: Drupal\audit_log\AuditLogRegister
+    tags:
+      - { name: service_collector, tag: audit_log_entity_event_register, call: add_register }
+
+  audit_log.db_register:
+    class: Drupal\audit_log\Register\Database
+    tags:
+      - { name: audit_log_entity_event_register }
+
+  audit_log.node_interpreter:
+    class: Drupal\audit_log\Interpreter\Node
+    tags:
+      - { name: audit_log_entity_event_interpreter }
+
+  audit_log.entity_interpreter:
+    class: Drupal\audit_log\Interpreter\User
+    tags:
+      - { name: audit_log_entity_event_interpreter }
