@@ -5,6 +5,9 @@ namespace Drupal\Tests\audit_log\Kernel;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\user\Entity\User;
 
+/**
+ * @group audit_log
+ */
 class AuditLogDatabaseTest extends KernelTestBase {
 
   public static $modules = ['system', 'user', 'audit_log'];
