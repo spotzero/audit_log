@@ -6,12 +6,19 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\user\Entity\User;
 
 /**
+ * Tests the audit log database logger.
+ *
  * @group audit_log
  */
 class AuditLogDatabaseTest extends KernelTestBase {
-
+  /**
+   * {@inheritdoc}
+   */
   public static $modules = ['system', 'user', 'audit_log'];
 
+  /**
+   * {@inheritdoc}
+   */
   protected function setUp() {
     parent::setUp();
 
@@ -20,6 +27,9 @@ class AuditLogDatabaseTest extends KernelTestBase {
     $this->installSchema('audit_log', ['audit_log']);
   }
 
+  /**
+   * Verifies that user events are written to the database.
+   */
   public function testUserAuditLog() {
     $count = db_query('SELECT COUNT(id) FROM {audit_log}')->fetchField();
     $this->assertEquals(0, $count);

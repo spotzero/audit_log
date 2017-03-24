@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains hook implementations for the audit_log module.
+ */
+
 use Drupal\Core\Entity\EntityInterface;
 
 /**

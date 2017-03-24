@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Install, update and uninstall functions for the dblog module.
+ * Install, update and uninstall functions for the audit_log module.
  */
 
 /**

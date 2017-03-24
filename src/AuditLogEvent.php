@@ -2,72 +2,145 @@
 
 namespace Drupal\audit_log;
 
-class AuditLogEvent implements AuditLogEventInterface {
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AccountInterface;
 
+/**
+ * Represents a single auditable event for logging.
+ *
+ * @package Drupal\audit_log
+ */
+class AuditLogEvent implements AuditLogEventInterface {
+  /**
+   * The user that triggered the audit event.
+   *
+   * @var \Drupal\user\UserInterface
+   */
   protected $user;
 
+  /**
+   * The entity being modified.
+   *
+   * @var \Drupal\Core\Entity\EntityInterface
+   */
   protected $entity;
 
+  /**
+   * The audit message to write to the log.
+   *
+   * @var string
+   */
   protected $message;
 
-  protected $event_type;
+  /**
+   * The type of event being reported.
+   *
+   * @var string
+   */
+  protected $eventType;
 
-  protected $previous_state;
+  /**
+   * The original state of the object before the event occurred.
+   *
+   * @var string
+   */
+  protected $previousState;
 
-  protected $current_state;
+  /**
+   * The new state of the object after the event occurred.
+   *
+   * @var string
+   */
+  protected $currentState;
 
-  public function setUser($user) {
+  /**
+   * {@inheritdoc}
+   */
+  public function setUser(AccountInterface $user) {
     $this->user = $user;
     return $this;
   }
 
-  public function setEntity($entity) {
+  /**
+   * {@inheritdoc}
+   */
+  public function setEntity(EntityInterface $entity) {
     $this->entity = $entity;
     return $this;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function setMessage($message) {
     $this->message = $message;
     return $this;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function setEventType($event_type) {
-    $this->event_type = $event_type;
+    $this->eventType = $event_type;
     return $this;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function setPreviousState($state) {
-    $this->previous_state = $state;
+    $this->previousState = $state;
     return $this;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function setCurrentState($state) {
-    $this->current_state = $state;
+    $this->currentState = $state;
     return $this;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getUser() {
     return $this->user;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getEntity() {
     return $this->entity;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getMessage() {
     return $this->message;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getEventType() {
-    return $this->event_type;
+    return $this->eventType;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getPreviousState() {
-    return $this->previous_state;
+    return $this->previousState;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getCurrentState() {
-    return $this->current_state;
+    return $this->currentState;
   }
 
 }
