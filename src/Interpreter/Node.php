@@ -27,7 +27,8 @@ class Node implements AuditLogInterpreterInterface {
 
     if ($event_type == 'insert') {
       $event
-        ->setMessage(t('@title was created.', $args))
+        ->setMessage('@name was created.')
+        ->setMessagePlaceholders(['@name' => $entity->label()])
         ->setPreviousState(NULL)
         ->setCurrentState($state);
       return TRUE;
@@ -35,7 +36,8 @@ class Node implements AuditLogInterpreterInterface {
 
     if ($event_type == 'update') {
       $event
-        ->setMessage(t('@title was updated.', $args))
+        ->setMessage('@name was updated.')
+        ->setMessagePlaceholders(['@name' => $entity->label()])
         ->setPreviousState($original_state)
         ->setCurrentState($state);
       return TRUE;
@@ -43,7 +45,8 @@ class Node implements AuditLogInterpreterInterface {
 
     if ($event_type == 'delete') {
       $event
-        ->setMessage(t('@title was updated.', $args))
+        ->setMessage('@name was deleted.')
+        ->setMessagePlaceholders(['@name' => $entity->label()])
         ->setPreviousState($original_state)
         ->setCurrentState(NULL);
       return TRUE;

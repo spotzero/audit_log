@@ -22,7 +22,7 @@ class AuditLogDatabaseTest extends KernelTestBase {
   protected function setUp() {
     parent::setUp();
 
-    $this->installSchema('system', 'sequences');
+    $this->installSchema('system', ['sequences']);
     $this->installEntitySchema('user');
     $this->installSchema('audit_log', ['audit_log']);
   }

@@ -46,6 +46,17 @@ interface AuditLogEventInterface {
   public function setMessage($message);
 
   /**
+   * Stores the replacement tokens for the log message.
+   *
+   * @param array $variables
+   *   The array of replacement tokens.
+   *
+   * @return AuditLogEventInterface
+   *   The current instance of the event.
+   */
+  public function setMessagePlaceholders($variables);
+
+  /**
    * Stores the type of event being reported.
    *
    * @param string $event_type
@@ -102,6 +113,14 @@ interface AuditLogEventInterface {
    *   The untranslated audit log message.
    */
   public function getMessage();
+
+  /**
+   * Retrieves the replacement tokens for the log message.
+   *
+   * @return array
+   *   The replacement tokens for the log message.
+   */
+  public function getMessagePlaceholders();
 
   /**
    * Retrieves the type of event that was triggered.

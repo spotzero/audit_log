@@ -33,6 +33,13 @@ class AuditLogEvent implements AuditLogEventInterface {
   protected $message;
 
   /**
+   * Array of variables that match the message string replacement tokens.
+   *
+   * @var array
+   */
+  protected $messagePlaceholders = [];
+
+  /**
    * The type of event being reported.
    *
    * @var string
@@ -80,6 +87,14 @@ class AuditLogEvent implements AuditLogEventInterface {
   /**
    * {@inheritdoc}
    */
+  public function setMessagePlaceholders($variables) {
+    $this->messagePlaceholders = $variables;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function setEventType($event_type) {
     $this->eventType = $event_type;
     return $this;
@@ -120,6 +135,13 @@ class AuditLogEvent implements AuditLogEventInterface {
    */
   public function getMessage() {
     return $this->message;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMessagePlaceholders() {
+    return $this->messagePlaceholders;
   }
 
   /**

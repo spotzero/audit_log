@@ -27,6 +27,7 @@ class Database implements AuditLogRegisterInterface {
         'previous_state' => $event->getPreviousState(),
         'current_state' => $event->getCurrentState(),
         'message' => $event->getMessage(),
+        'variables' => serialize($event->getMessagePlaceholders()),
         'timestamp' => \Drupal::time()->getRequestTime(),
       ])
       ->execute();
