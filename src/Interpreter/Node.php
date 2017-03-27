@@ -21,8 +21,11 @@ class Node implements AuditLogInterpreterInterface {
     }
     $event_type = $event->getEventType();
     /** @var \Drupal\node\NodeInterface $entity */
-    $state = $entity->isPublished() ? 'published' : 'unpublished';
-    $original_state = $entity->original->isPublished() ? 'published' : 'unpublished';
+    $current_state = $entity->isPublished() ? 'published' : 'unpublished';
+    $previous_state = '';
+    if (isset($entity->original)) {
+      $previous_state = $entity->original->isPublished() ? 'published' : 'unpublished';
+    }
     $args = ['@title' => $entity->getTitle()];
 
     if ($event_type == 'insert') {
@@ -30,7 +33,7 @@ class Node implements AuditLogInterpreterInterface {
         ->setMessage('@name was created.')
         ->setMessagePlaceholders(['@name' => $entity->label()])
         ->setPreviousState(NULL)
-        ->setCurrentState($state);
+        ->setCurrentState($current_state);
       return TRUE;
     }
 
@@ -38,8 +41,8 @@ class Node implements AuditLogInterpreterInterface {
       $event
         ->setMessage('@name was updated.')
         ->setMessagePlaceholders(['@name' => $entity->label()])
-        ->setPreviousState($original_state)
-        ->setCurrentState($state);
+        ->setPreviousState($previous_state)
+        ->setCurrentState($current_state);
       return TRUE;
     }
 
@@ -47,7 +50,7 @@ class Node implements AuditLogInterpreterInterface {
       $event
         ->setMessage('@name was deleted.')
         ->setMessagePlaceholders(['@name' => $entity->label()])
-        ->setPreviousState($original_state)
+        ->setPreviousState($previous_state)
         ->setCurrentState(NULL);
       return TRUE;
     }
