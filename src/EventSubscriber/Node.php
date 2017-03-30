@@ -1,15 +1,15 @@
 <?php
 
-namespace Drupal\audit_log\Interpreter;
+namespace Drupal\audit_log\EventSubscriber;
 
 use Drupal\audit_log\AuditLogEventInterface;
 
 /**
  * Processes node entity events.
  *
- * @package Drupal\audit_log\Interpreter
+ * @package Drupal\audit_log\EventSubscriber
  */
-class Node implements AuditLogInterpreterInterface {
+class Node implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}

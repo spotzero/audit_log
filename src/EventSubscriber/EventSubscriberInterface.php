@@ -1,15 +1,15 @@
 <?php
 
-namespace Drupal\audit_log\Interpreter;
+namespace Drupal\audit_log\EventSubscriber;
 
 use Drupal\audit_log\AuditLogEventInterface;
 
 /**
- * Defines an interpreter for responding to events.
+ * Defines an event subscriber for responding to events.
  *
- * @package Drupal\audit_log\Interpreter
+ * @package Drupal\audit_log\EventSubscriber
  */
-interface AuditLogInterpreterInterface {
+interface EventSubscriberInterface {
 
   /**
    * Processes an event.
@@ -18,7 +18,7 @@ interface AuditLogInterpreterInterface {
    *   The audit event.
    *
    * @return bool
-   *   TRUE if the interpreter handled the event.
+   *   TRUE if the event subscriber handled the event.
    */
   public function reactTo(AuditLogEventInterface $event);
 

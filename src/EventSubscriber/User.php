@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\audit_log\Interpreter;
+namespace Drupal\audit_log\EventSubscriber;
 
 use Drupal\audit_log\AuditLogEventInterface;
 use Drupal\user\UserInterface;
@@ -8,9 +8,9 @@ use Drupal\user\UserInterface;
 /**
  * Processes User entity events.
  *
- * @package Drupal\audit_log\Interpreter
+ * @package Drupal\audit_log\EventSubscriber
  */
-class User implements AuditLogInterpreterInterface {
+class User implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}

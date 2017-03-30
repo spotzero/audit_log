@@ -1,15 +1,15 @@
 <?php
 
-namespace Drupal\audit_log\Register;
+namespace Drupal\audit_log\StorageBackend;
 
 use Drupal\audit_log\AuditLogEventInterface;
 
 /**
  * Writes audit events to a custom database table.
  *
- * @package Drupal\audit_log\Register
+ * @package Drupal\audit_log\StorageBackend
  */
-class Database implements AuditLogRegisterInterface {
+class Database implements StorageBackendInterface {
 
   /**
    * {@inheritdoc}

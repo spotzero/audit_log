@@ -2,24 +2,24 @@ services:
   audit_log.logger:
     class: Drupal\audit_log\AuditLogLogger
     tags:
-      - { name: service_collector, tag: audit_log_entity_event_interpreter, call: addInterpreter }
+      - { name: service_collector, tag: audit_log_event_subscriber, call: addEventSubscriber }
 
-  audit_log.register:
-    class: Drupal\audit_log\AuditLogRegister
+  audit_log.storage:
+    class: Drupal\audit_log\AuditLogStorage
     tags:
-      - { name: service_collector, tag: audit_log_entity_event_register, call: addRegister }
+      - { name: service_collector, tag: audit_log_storage_backend, call: addStorageBackend }
 
-  audit_log.db_register:
-    class: Drupal\audit_log\Register\Database
+  audit_log.storage_backend.database:
+    class: Drupal\audit_log\StorageBackend\Database
     tags:
-      - { name: audit_log_entity_event_register }
+      - { name: audit_log_storage_backend }
 
-  audit_log.node_interpreter:
-    class: Drupal\audit_log\Interpreter\Node
+  audit_log.event_subscriber.node:
+    class: Drupal\audit_log\EventSubscriber\Node
     tags:
-      - { name: audit_log_entity_event_interpreter }
+      - { name: audit_log_event_subscriber }
 
-  audit_log.entity_interpreter:
-    class: Drupal\audit_log\Interpreter\User
+  audit_log.event_subscriber.user:
+    class: Drupal\audit_log\EventSubscriber\User
     tags:
-      - { name: audit_log_entity_event_interpreter }
+      - { name: audit_log_event_subscriber }
