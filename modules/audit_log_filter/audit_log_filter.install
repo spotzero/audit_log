@@ -12,6 +12,9 @@ function audit_log_filter_uninstall() {
   variable_del('audit_log_exclude_enity_types');
 }
 
+/**
+ * Update filters.
+ */
 function audit_log_filter_update_7001() {
   $alf_old_bundles = variable_get('audit_log_exclude_bundles', array());
   $alf_old_entities = variable_get('audit_log_exclude_entity_types', array());
