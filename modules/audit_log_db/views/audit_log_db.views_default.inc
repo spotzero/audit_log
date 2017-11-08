@@ -38,8 +38,9 @@ function audit_log_db_views_default_views() {
     'entity_label' => 'entity_label',
     'entity_type' => 'entity_type',
     'timestamp' => 'timestamp',
+    'message' => 'message',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['default'] = 'timestamp';
   $handler->display->display_options['style_options']['info'] = array(
     'name' => array(
       'sortable' => 1,
@@ -85,6 +86,13 @@ function audit_log_db_views_default_views() {
     ),
     'timestamp' => array(
       'sortable' => 1,
+      'default_sort_order' => 'desc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'message' => array(
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
