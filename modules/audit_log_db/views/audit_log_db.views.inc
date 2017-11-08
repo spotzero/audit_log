@@ -196,6 +196,23 @@ function audit_log_db_views_data() {
         'handler' => 'views_handler_argument_date',
       ),
     ),
+    'message' => array(
+      'title' => 'Message',
+      'help' => 'The message of the log item.',
+      'field' => array(
+        'handler' => 'views_handler_field',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
   );
 
   $data['audit_log_roles'] = array(

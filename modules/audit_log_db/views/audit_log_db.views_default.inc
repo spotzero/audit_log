@@ -130,16 +130,14 @@ function audit_log_db_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['field'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['date_format'] = 'raw time ago';
   $handler->display->display_options['fields']['timestamp']['second_date_format'] = 'long';
+  /* Field: Audit Log: Message */
+  $handler->display->display_options['fields']['message']['id'] = 'message';
+  $handler->display->display_options['fields']['message']['table'] = 'audit_log';
+  $handler->display->display_options['fields']['message']['field'] = 'message';
   /* Filter criterion: Audit Log: Audit Action */
   $handler->display->display_options['filters']['audit_action']['id'] = 'audit_action';
   $handler->display->display_options['filters']['audit_action']['table'] = 'audit_log';
   $handler->display->display_options['filters']['audit_action']['field'] = 'audit_action';
-  $handler->display->display_options['filters']['audit_action']['value'] = array(
-    'view' => 'view',
-    'insert' => 'insert',
-    'update' => 'update',
-    'delete' => 'delete',
-  );
   $handler->display->display_options['filters']['audit_action']['exposed'] = TRUE;
   $handler->display->display_options['filters']['audit_action']['expose']['operator_id'] = 'audit_action_op';
   $handler->display->display_options['filters']['audit_action']['expose']['label'] = 'Audit Action';
@@ -151,6 +149,10 @@ function audit_log_db_views_default_views() {
     1 => 0,
     3 => 0,
     4 => 0,
+    5 => 0,
+    6 => 0,
+    11 => 0,
+    16 => 0,
   );
   /* Filter criterion: Audit Log: Entity Type */
   $handler->display->display_options['filters']['entity_type']['id'] = 'entity_type';

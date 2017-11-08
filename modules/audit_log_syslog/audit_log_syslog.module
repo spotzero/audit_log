@@ -26,10 +26,11 @@ function audit_log_syslog_audit_log(Auditlog $log) {
     '!referer'      => $log->url,
     '!uid'          => $log->uid,
     '!entity_id'    => $log->entity_id,
-    '!entity_type'  => $log->$entity_type,
+    '!entity_type'  => $log->entity_type,
     '!entity_label' => $log->entity_label,
     '!bundle'       => $log->bundle,
     '!audit_action' => $log->action,
+    '!message'      => isset($log->message) ? $log->message : '',
   ));
 
   syslog(variable_get('audit_log_syslog_log_severity', LOG_NOTICE), $message);
