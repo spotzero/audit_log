@@ -11,7 +11,7 @@
  */
 function audit_log_hybridauth_hybridauth_user_insert($account, $data) {
   audit_log($account, 'user', 'hybridauth-user-created', $account, NULL, REQUEST_TIME, array(
-    'message' => format_string('Created %name.', array('%name' => $account->name)),
+    'message' => format_string('Created @name.', array('@name' => $account->name)),
   ));
 }
 
@@ -22,7 +22,7 @@ function audit_log_hybridauth_hybridauth_user_insert($account, $data) {
  */
 function audit_log_hybridauth_hybridauth_identity_added($account, $data) {
   audit_log($account, 'user', 'hybridauth-user-identity-added', $account, NULL, REQUEST_TIME, array(
-    'message' => format_string('Added identity to %name.', array('%name' => $account->name)),
+    'message' => format_string('Added identity to @name.', array('@name' => $account->name)),
   ));
 }
 
@@ -33,7 +33,7 @@ function audit_log_hybridauth_hybridauth_identity_added($account, $data) {
  */
 function audit_log_hybridauth_hybridauth_identity_deleted($account, $data) {
   audit_log($account, 'user', 'hybridauth-user-identity-deleted', $account, NULL, REQUEST_TIME, array(
-    'message' => format_string('Deleted identity from %name.', array('%name' => $account->name)),
+    'message' => format_string('Deleted identity from @name.', array('@name' => $account->name)),
   ));
 }
 
@@ -44,7 +44,7 @@ function audit_log_hybridauth_hybridauth_identity_deleted($account, $data) {
  */
 function audit_log_hybridauth_hybridauth_user_login($account, $data) {
   audit_log($account, 'user', 'hybridauth-user-login', $account, NULL, REQUEST_TIME, array(
-    'message' => format_string('Login for %name.', array('%name' => $account->name)),
+    'message' => format_string('Login for @name.', array('@name' => $account->name)),
   ));
 }
 
@@ -55,7 +55,7 @@ function audit_log_hybridauth_hybridauth_user_login($account, $data) {
  */
 function audit_log_hybridauth_hybridauth_user_blocked($account, $data) {
   audit_log($account, 'user', 'hybridauth-user-blocked', $account, NULL, REQUEST_TIME, array(
-    'message' => format_string('Login rejected for %name.', array('%name' => $account->name)),
+    'message' => format_string('Login rejected for @name.', array('@name' => $account->name)),
   ));
 }
 
