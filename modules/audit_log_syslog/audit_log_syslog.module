@@ -8,7 +8,7 @@
  * Implements hook_audit_log().
  */
 function audit_log_syslog_audit_log(Auditlog $log) {
-  global $base_url;
+  global $base_url, $base_root;
 
   $log_init = &drupal_static(__FUNCTION__, FALSE);
 
@@ -23,9 +23,9 @@ function audit_log_syslog_audit_log(Auditlog $log) {
     '!ip'           => ip_address(),
     '!timestamp'    => $log->timestamp,
     '!type'         => $log->audit_action,
-    '!request_uri'  => $log->url,
-    '!referer'      => $log->url,
-    '!link'         => $log->url,
+    '!request_uri'  => $base_root . $log->url,
+    '!referer'      => $base_root . $log->url,
+    '!link'         => $base_root . $log->url,
     '!uid'          => $log->uid,
     '!entity_id'    => $log->entity_id,
     '!entity_type'  => $log->entity_type,
