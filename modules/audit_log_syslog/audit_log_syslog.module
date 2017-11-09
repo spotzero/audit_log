@@ -33,7 +33,7 @@ function audit_log_syslog_audit_log(Auditlog $log) {
     '!message'      => isset($log->message) ? $log->message : '',
   ));
 
-  syslog(variable_get('audit_log_syslog_log_severity', LOG_NOTICE), $message);
+  syslog(variable_get('audit_log_syslog_log_severity', WATCHDOG_NOTICE), $message);
 }
 
 /**
