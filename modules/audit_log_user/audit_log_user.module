@@ -10,7 +10,9 @@
  * Log successful login action of user
  */
 function audit_log_user_user_login(&$edit, $account) {
-  audit_log($account, 'user', 'user-login');
+  audit_log($account, 'user', 'user-login', $account, NULL, REQUEST_TIME, array(
+    'message' => format_string('Log in for @name.', array('@name' => $account->name)),
+  ));
 }
 
 /**
@@ -18,7 +20,9 @@ function audit_log_user_user_login(&$edit, $account) {
  * Log logout action of user
  */
 function audit_log_user_user_logout($account) {
-  audit_log($account, 'user', 'user-logout');
+  audit_log($account, 'user', 'user-logout', $account, NULL, REQUEST_TIME, array(
+    'message' => format_string('Log out for @name.', array('@name' => $account->name)),
+  ));
 }
 
 /**
@@ -45,12 +49,16 @@ function audit_log_user_login_validate($form, &$form_state) {
   if (!$uid) {
     $anon = user_load(0);
     $anon->name = $form_state['values']['name'];
-    audit_log($anon, 'user', 'pass-nonuser');
+    audit_log($anon, 'user', 'pass-nonuser', $anon, NULL, REQUEST_TIME, array(
+      'message' => format_string('Unexisting user @name.', array('@name' => $anon->name)),
+    ));
   }
   elseif (!user_authenticate($form_state['values']['name'], trim($form_state['values']['pass']))) {
     $anon = user_load(0);
     $anon->name = $form_state['values']['name'];
-    audit_log($anon, 'user', 'pass-wrong');
+    audit_log($anon, 'user', 'pass-wrong', $anon, NULL, REQUEST_TIME, array(
+      'message' => format_string('Wrong password for @name.', array('@name' => $anon->name)),
+    ));
   }
 }
 
@@ -90,7 +98,12 @@ function audit_log_user_user_update(&$edit, $account, $category) {
   if (isset($edit['status'])) {
     if ($edit['original']->status != $edit['status']) {
       $action = ($edit['status']) ? 'user-unblocked' : 'user-blocked';
-      audit_log($account, 'user', $action);
+      audit_log($account, 'user', $action, $account, NULL, REQUEST_TIME, array(
+        'message' => format_string('@action @name.', array(
+          '@name' => $account->name,
+          '@action' => $action,
+        )),
+      ));
     }
   }
 
