@@ -20,10 +20,12 @@ function audit_log_syslog_audit_log(Auditlog $log) {
 
   $message = strtr(variable_get('audit_log_syslog_format', variable_get('syslog_format', '!base_url|!timestamp|!type|!ip|!request_uri|!referer|!uid|!link|!message')), array(
     '!base_url'     => $base_url,
+    '!ip'           => ip_address(),
     '!timestamp'    => $log->timestamp,
     '!type'         => $log->audit_action,
     '!request_uri'  => $log->url,
     '!referer'      => $log->url,
+    '!link'         => $log->url,
     '!uid'          => $log->uid,
     '!entity_id'    => $log->entity_id,
     '!entity_type'  => $log->entity_type,
