@@ -29,7 +29,7 @@ function audit_log_syslog_audit_log(Auditlog $log) {
     '!entity_type'  => $log->entity_type,
     '!entity_label' => $log->entity_label,
     '!bundle'       => $log->bundle,
-    '!audit_action' => $log->action,
+    '!audit_action' => $log->audit_action,
     '!message'      => isset($log->message) ? $log->message : '',
   ));
 
