@@ -32,7 +32,7 @@ class AuditLogLogger {
     $event->setUser($account);
     $event->setEntity($entity);
     $event->setEventType($event_type);
-    $event->setRequestTime(REQUEST_TIME);
+    $event->setRequestTime(\Drupal::time()->getRequestTime());
 
     foreach ($this->sortEventSubscribers() as $event_subscriber) {
       if ($event_subscriber->reactTo($event)) {
@@ -58,6 +58,13 @@ class AuditLogLogger {
    */
   public function addEventSubscriber(EventSubscriberInterface $event_subscriber, $priority = 0) {
     $this->entityEventEventSubscribers[$priority][] = $event_subscriber;
+  }
+
+  /**
+   * Get event subscribers.
+   */
+  public function getEventSubscribers() {
+    return $this->sortEventSubscribers();
   }
 
   /**

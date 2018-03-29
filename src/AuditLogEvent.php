@@ -94,7 +94,7 @@ class AuditLogEvent implements AuditLogEventInterface {
   /**
    * {@inheritdoc}
    */
-  public function setMessagePlaceholders($variables) {
+  public function setMessagePlaceholders(array $variables) {
     $this->messagePlaceholders = $variables;
     return $this;
   }

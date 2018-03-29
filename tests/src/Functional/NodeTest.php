@@ -22,8 +22,11 @@ class NodeTest extends NodeTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['node_test', 'audit_log'];
+  public static $modules = ['node_test', 'audit_log', 'views'];
 
+  /**
+   * {@inheritdoc}
+   */
   protected function setUp() {
     parent::setUp();
 
@@ -35,7 +38,7 @@ class NodeTest extends NodeTestBase {
   /**
    * Tests audit log functionality on node crud operations.
    */
-  public function testNodeCRUD() {
+  public function testNodeCrud() {
     $count = db_query("SELECT COUNT(id) FROM {audit_log} WHERE entity_type = 'node'")->fetchField();
     $this->assertEquals(0, $count);
 

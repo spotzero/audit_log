@@ -22,4 +22,9 @@ interface EventSubscriberInterface {
    */
   public function reactTo(AuditLogEventInterface $event);
 
+  /**
+   * Return entity type machine name.
+   */
+  public function getEntityType();
+
 }

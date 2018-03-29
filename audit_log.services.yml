@@ -23,3 +23,8 @@ services:
     class: Drupal\audit_log\EventSubscriber\User
     tags:
       - { name: audit_log_event_subscriber }
+
+  audit_log.event_subscriber.taxonomy:
+    class: Drupal\audit_log\EventSubscriber\Taxonomy
+    tags:
+      - { name: audit_log_event_subscriber }

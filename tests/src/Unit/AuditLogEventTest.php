@@ -24,7 +24,6 @@ class AuditLogEventTest extends UnitTestCase {
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
     $entity = $this->getMock(EntityInterface::class);
 
-
     $timestamp = time();
 
     $event = new AuditLogEvent();

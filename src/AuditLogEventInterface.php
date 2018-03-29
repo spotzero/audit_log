@@ -54,7 +54,7 @@ interface AuditLogEventInterface {
    * @return AuditLogEventInterface
    *   The current instance of the event.
    */
-  public function setMessagePlaceholders($variables);
+  public function setMessagePlaceholders(array $variables);
 
   /**
    * Stores the type of event being reported.
@@ -161,6 +161,7 @@ interface AuditLogEventInterface {
    * The timestamp for when the event was initiated.
    *
    * @return int
+   *   Timestamp value.
    */
   public function getRequestTime();
 

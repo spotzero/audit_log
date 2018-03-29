@@ -15,7 +15,7 @@ class AuditLogStorage {
    *
    * @var array
    */
-  protected $storage_backends;
+  protected $storageBackends;
 
   /**
    * Writes the audit event to each available logging destination.
@@ -43,7 +43,7 @@ class AuditLogStorage {
    *   before higher number storage backend s.
    */
   public function addStorageBackend(StorageBackendInterface $storage_backend, $priority = 0) {
-    $this->storage_backends[$priority][] = $storage_backend;
+    $this->storageBackends[$priority][] = $storage_backend;
   }
 
   /**
@@ -54,9 +54,9 @@ class AuditLogStorage {
    */
   protected function sortStorageBackends() {
     $sorted = [];
-    krsort($this->storage_backends);
+    krsort($this->storageBackends);
 
-    foreach ($this->storage_backends as $storage_backends) {
+    foreach ($this->storageBackends as $storage_backends) {
       $sorted = array_merge($sorted, $storage_backends);
     }
     return $sorted;

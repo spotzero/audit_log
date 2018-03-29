@@ -3,6 +3,7 @@
 namespace Drupal\audit_log\EventSubscriber;
 
 use Drupal\audit_log\AuditLogEventInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\user\UserInterface;
 
 /**
@@ -16,12 +17,13 @@ class User implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public function reactTo(AuditLogEventInterface $event) {
+    /** @var \Drupal\user\Entity\User $entity */
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() != 'user') {
+    if ($entity->getEntityTypeId() != $this->getEntityType()) {
       return FALSE;
     }
     $event_type = $event->getEventType();
-    $args = ['@name' => $entity->label()];
+    $args = ['@name' => Markup::create($entity->label())];
     $current_state = $entity->status->value ? 'active' : 'blocked';
     $original_state = NULL;
     if (isset($entity->original) && $entity->original instanceof UserInterface) {
@@ -46,13 +48,20 @@ class User implements EventSubscriberInterface {
 
     if ($event_type == 'delete') {
       $event
-        ->setMessage(t('@name was updated.', $args))
+        ->setMessage(t('@name was deleted.', $args))
         ->setPreviousState($original_state)
         ->setCurrentState(NULL);
       return TRUE;
     }
 
     return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getEntityType() {
+    return 'user';
   }
 
 }

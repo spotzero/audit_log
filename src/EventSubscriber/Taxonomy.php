@@ -6,34 +6,34 @@ use Drupal\audit_log\AuditLogEventInterface;
 use Drupal\Core\Render\Markup;
 
 /**
- * Processes node entity events.
+ * Processes taxonomy_term entity events.
  *
  * @package Drupal\audit_log\EventSubscriber
  */
-class Node implements EventSubscriberInterface {
+class Taxonomy implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
    */
   public function reactTo(AuditLogEventInterface $event) {
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() != $this->getEntityType()) {
+    if (!in_array($entity->getEntityTypeId(), [$this->getEntityType()])) {
       return FALSE;
     }
+
     $event_type = $event->getEventType();
-    /** @var \Drupal\node\NodeInterface $entity */
-    $current_state = $entity->isPublished() ? 'published' : 'unpublished';
-    $previous_state = '';
-    if (isset($entity->original)) {
-      $previous_state = $entity->original->isPublished() ? 'published' : 'unpublished';
-    }
+
+    $current_state = $previous_state = 'active';
+
+    /** @var \Drupal\taxonomy\Entity\Term $entity */
     $args = [
-      '@title' => Markup::create($entity->label()),
+      '@title' => Markup::create($entity->getName()),
+      '@voc' => Markup::create($entity->getVocabularyId()),
     ];
 
     if ($event_type == 'insert') {
       $event
-        ->setMessage(t('@title was created.', $args))
+        ->setMessage(t('@title term has been added to @voc vocabulary.', $args))
         ->setPreviousState(NULL)
         ->setCurrentState($current_state);
       return TRUE;
@@ -41,7 +41,7 @@ class Node implements EventSubscriberInterface {
 
     if ($event_type == 'update') {
       $event
-        ->setMessage(t('@title was updated.', $args))
+        ->setMessage(t('@title term has been update in @voc vocabulary.', $args))
         ->setPreviousState($previous_state)
         ->setCurrentState($current_state);
       return TRUE;
@@ -49,7 +49,7 @@ class Node implements EventSubscriberInterface {
 
     if ($event_type == 'delete') {
       $event
-        ->setMessage(t('@title was deleted.', $args))
+        ->setMessage(t('@title term has been deleted from @voc vocabulary.', $args))
         ->setPreviousState($previous_state)
         ->setCurrentState(NULL);
       return TRUE;
@@ -62,7 +62,7 @@ class Node implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public function getEntityType() {
-    return 'node';
+    return 'taxonomy_term';
   }
 
 }

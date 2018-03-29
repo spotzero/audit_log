@@ -27,3 +27,15 @@ function audit_log_entity_insert(EntityInterface $entity) {
 function audit_log_entity_delete(EntityInterface $entity) {
   \Drupal::service('audit_log.logger')->log('delete', $entity);
 }
+
+/**
+ * Implements hook_theme().
+ */
+function audit_log_theme($existing, $type, $theme, $path) {
+  return [
+    'audit_log' => [
+      'render element' => 'element',
+      'file' => 'audit_log.page.inc',
+    ],
+  ];
+}

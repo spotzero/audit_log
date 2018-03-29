@@ -24,7 +24,7 @@ class AuditLogDatabaseTest extends KernelTestBase {
 
     $this->installSchema('system', ['sequences']);
     $this->installEntitySchema('user');
-    $this->installSchema('audit_log', ['audit_log']);
+    $this->installEntitySchema('audit_log');
   }
 
   /**
