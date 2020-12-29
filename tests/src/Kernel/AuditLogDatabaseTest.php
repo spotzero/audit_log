@@ -31,17 +31,17 @@ class AuditLogDatabaseTest extends KernelTestBase {
    * Verifies that user events are written to the database.
    */
   public function testUserAuditLog() {
-    $count = db_query('SELECT COUNT(id) FROM {audit_log}')->fetchField();
+    $count = \Drupal::database()->query('SELECT COUNT(id) FROM {audit_log}')->fetchField();
     $this->assertEquals(0, $count);
 
     $user = User::create(['name' => 'test name']);
     $user->save();
 
-    $count = db_query('SELECT COUNT(id) FROM {audit_log}')->fetchField();
+    $count = \Drupal::database()->query('SELECT COUNT(id) FROM {audit_log}')->fetchField();
     $this->assertEquals(1, $count);
     $user->save();
 
-    $count = db_query('SELECT COUNT(id) FROM {audit_log}')->fetchField();
+    $count = \Drupal::database()->query('SELECT COUNT(id) FROM {audit_log}')->fetchField();
     $this->assertEquals(2, $count);
   }
 

@@ -39,7 +39,7 @@ class NodeTest extends NodeTestBase {
    * Tests audit log functionality on node crud operations.
    */
   public function testNodeCrud() {
-    $count = db_query("SELECT COUNT(id) FROM {audit_log} WHERE entity_type = 'node'")->fetchField();
+    $count = \Drupal::database()->query("SELECT COUNT(id) FROM {audit_log} WHERE entity_type = 'node'")->fetchField();
     $this->assertEquals(0, $count);
 
     // Initial creation.
@@ -50,23 +50,23 @@ class NodeTest extends NodeTestBase {
     ]);
     $node->save();
 
-    $count = db_query("SELECT COUNT(id) FROM {audit_log} WHERE entity_type = 'node'")->fetchField();
+    $count = \Drupal::database()->query("SELECT COUNT(id) FROM {audit_log} WHERE entity_type = 'node'")->fetchField();
     $this->assertEquals(1, $count);
 
     // Update the node without applying changes.
     $node->save();
-    $count = db_query("SELECT COUNT(id) FROM {audit_log} WHERE entity_type = 'node'")->fetchField();
+    $count = \Drupal::database()->query("SELECT COUNT(id) FROM {audit_log} WHERE entity_type = 'node'")->fetchField();
     $this->assertEquals(2, $count);
 
     // Apply changes.
     $node->title = 'updated';
     $node->save();
 
-    $count = db_query("SELECT COUNT(id) FROM {audit_log} WHERE entity_type = 'node'")->fetchField();
+    $count = \Drupal::database()->query("SELECT COUNT(id) FROM {audit_log} WHERE entity_type = 'node'")->fetchField();
     $this->assertEquals(3, $count);
 
     $node->delete();
-    $count = db_query("SELECT COUNT(id) FROM {audit_log} WHERE entity_type = 'node'")->fetchField();
+    $count = \Drupal::database()->query("SELECT COUNT(id) FROM {audit_log} WHERE entity_type = 'node'")->fetchField();
     $this->assertEquals(4, $count);
   }
 
