@@ -1,5 +1,5 @@
 {
-    "name": "drupal/audit_log",
+    "name": "spotzero/audit_log",
     "type": "drupal-module",
     "authors": [
         {
