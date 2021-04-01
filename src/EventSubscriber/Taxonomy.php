@@ -28,7 +28,7 @@ class Taxonomy implements EventSubscriberInterface {
     /** @var \Drupal\taxonomy\Entity\Term $entity */
     $args = [
       '@title' => Markup::create($entity->getName()),
-      '@voc' => Markup::create($entity->getVocabularyId()),
+      '@voc' => Markup::create($entity->bundle()),
     ];
 
     if ($event_type == 'insert') {
